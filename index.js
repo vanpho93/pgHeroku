@@ -7,7 +7,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: false, maxAge: 7000 }
 }));
 
 app.listen(process.env.PORT || 3000, () => console.log('Server start!'));
@@ -27,9 +27,13 @@ app.get('/muave', (req, res) => {
 });
 
 app.get('/vaorap', (req, res) => {
-    if (req.session.daMuaVe) {
-        res.send('Moi xem phim');
-    } else {
-        res.send('Ban phai mua ve truoc');
-    }
+    req.session.a ? req.session.a++ : req.session.a = 1;
+    console.log(req.session.a);
+    if (req.session.daMuaVe) return res.send('Moi xem phim');
+    res.send('Ban phai mua ve truoc');
 });
+
+const requireSignIn = (req, res, next) => {
+    if (req.session.daMuaVe) return next();
+    res.send('Ban phai mua ve truoc');
+};
