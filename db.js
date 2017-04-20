@@ -1,11 +1,12 @@
 const pg = require('pg');
 
 const config = {
-    host: 'localhost',
+    host: 'ec2-54-235-72-121.compute-1.amazonaws.com',
     port: 5432,
-    database: 'NODE1603',
-    user: 'postgres',
-    password: 'khoapham'
+    database: 'dads3trapa2una',
+    user: 'nwcpbzteqnzdaa',
+    password: '7fc0eec484c429224aea6a9523304c6ede2fede8e239e66eb3ebd9bef91e2dc4',
+    ssl: true
 };
 
 const pool = new pg.Pool(config);
@@ -21,4 +22,4 @@ function query(sql, cb) {
     });
 }
 
-query('SELECT * FROM "User"', (err, result) => console.log(result));
+module.exports = query;
